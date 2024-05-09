@@ -15,3 +15,4 @@ MonoBehaviour:
   displayName: BrownHat
   price: 30
   icon: {fileID: -1419855319, guid: b3d88069b94d2f9489412660de36fcef, type: 3}
+  animationsIndex: 1

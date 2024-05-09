@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: PointyHat
   m_EditorClassIdentifier: 
   displayName: PointyHat
-  price: 100
+  price: 70
   icon: {fileID: 1138034389, guid: 25460a8d0eeacf14fba2899bee3f2e82, type: 3}
+  animationsIndex: 2

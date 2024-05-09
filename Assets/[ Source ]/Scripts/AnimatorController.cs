@@ -6,11 +6,9 @@ using UnityEngine.InputSystem;
 public class AnimatorController : MonoBehaviour
 {
     private Animator animator;
-    private PlayerMovement player;
 
     void Start()
     {
-        player = transform.parent.GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
     }
 

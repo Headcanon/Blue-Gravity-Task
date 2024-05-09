@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal.Profiling.Memory.Experimental;
@@ -5,20 +6,34 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public Dictionary<ItemData, InventoryItem> itemsDictionary = new Dictionary<ItemData, InventoryItem>(); 
+    [SerializeField] private int startMoney = 100;
+    private int currentMoney;
 
-    public void AddItem(ItemData itemData)
+    public Dictionary<ItemData, InventoryItem> itemsDictionary = new Dictionary<ItemData, InventoryItem>();
+    public event Action <ItemData> ItemAdded;
+
+    public static PlayerInventory Instance { get; private set; }
+    private void Awake()
     {
-        if (!itemsDictionary.TryGetValue(itemData, out InventoryItem item))
-        {
-            InventoryItem newItem = new InventoryItem(itemData);
-            itemsDictionary.Add(itemData, newItem);
-        }
+        Instance = this;
+        currentMoney = startMoney;
+    }
 
-        foreach(ItemData i in itemsDictionary.Keys)
-        {
-            print(i.displayName);
-        }
+    public void PurchaseItem(ItemData itemData)
+    {
+        if (itemsDictionary.TryGetValue(itemData, out InventoryItem item)) return;
+        if (currentMoney - itemData.Price < 0) return;
+
+        currentMoney -= itemData.Price;
+        print(currentMoney);
+        AddItem(itemData);
+    }
+    public void AddItem(ItemData itemData)
+    {    
+       InventoryItem newItem = new InventoryItem(itemData);
+       itemsDictionary.Add(itemData, newItem);
+       
+        ItemAdded?.Invoke(itemData);
     }
 
     public void RemoveItem(ItemData itemData)

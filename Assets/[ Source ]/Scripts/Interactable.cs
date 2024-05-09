@@ -5,7 +5,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     [SerializeField] private GameObject ButtonIcon;
-    [SerializeField] private ItemData item;
+    [SerializeField] private GameObject Menu;
 
     private Collider2D Collider;
 
@@ -14,18 +14,28 @@ public class Interactable : MonoBehaviour
         Collider = GetComponent<Collider2D>();
     }
 
+    private void Interact()
+    {
+        Menu.SetActive(true);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerInventory playerInventory = collision.GetComponent<PlayerInventory>();
+        PlayerControls playerInventory = collision.GetComponent<PlayerControls>();
         if (playerInventory != null)
         {
-            playerInventory.AddItem(item);
             ButtonIcon.SetActive(true);
+            playerInventory.interactAction += Interact;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        ButtonIcon.SetActive(false);
+        PlayerControls playerInventory = collision.GetComponent<PlayerControls>();
+        if (playerInventory != null)
+        {
+            ButtonIcon.SetActive(false);
+            playerInventory.interactAction -= Interact;
+        }
     }
 }

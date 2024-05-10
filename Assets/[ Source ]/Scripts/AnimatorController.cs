@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class AnimatorController : MonoBehaviour
 {
-    private Animator animator;
+    private static Animator animator;
 
     void Start()
     {
@@ -23,5 +23,15 @@ public class AnimatorController : MonoBehaviour
             animator.SetFloat("X", movementVector.x);
             animator.SetFloat("Y", movementVector.y);
         }
+    }
+
+    public static void ChangeClothes(ItemData itemData)
+    {
+        if (animator.GetInteger(itemData.BodyLayer) == itemData.AnimationsIndex)
+            animator.SetInteger(itemData.BodyLayer, 0);
+        else
+            animator.SetInteger(itemData.BodyLayer, itemData.AnimationsIndex);
+
+        animator.SetTrigger("ChangeSprite");
     }
 }

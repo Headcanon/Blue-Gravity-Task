@@ -10,7 +10,7 @@ public class PlayerInventory : MonoBehaviour
     private int currentMoney;
 
     public Dictionary<ItemData, InventoryItem> itemsDictionary = new Dictionary<ItemData, InventoryItem>();
-    public event Action <ItemData> ItemAdded;
+    public event Action ItemsChanged;
 
     public static PlayerInventory Instance { get; private set; }
     private void Awake()
@@ -33,14 +33,23 @@ public class PlayerInventory : MonoBehaviour
        InventoryItem newItem = new InventoryItem(itemData);
        itemsDictionary.Add(itemData, newItem);
        
-        ItemAdded?.Invoke(itemData);
+       ItemsChanged?.Invoke();
     }
 
+    public void SellItem(ItemData itemData)
+    {
+        if (!itemsDictionary.TryGetValue(itemData, out InventoryItem item)) return;
+
+        currentMoney += itemData.Price;
+        print(currentMoney);
+        RemoveItem(itemData);
+    }
     public void RemoveItem(ItemData itemData)
     {
         if (itemsDictionary.TryGetValue(itemData, out InventoryItem item))
         {
             itemsDictionary.Remove(itemData);
+            ItemsChanged?.Invoke();
         }
     }
 } 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15017059e31ba8149b71520d7fe238ab, type: 3}
   m_Name: BrownHat
   m_EditorClassIdentifier: 
-  displayName: BrownHat
+  bodyLayer: HatIndex
   price: 30
-  icon: {fileID: -1419855319, guid: b3d88069b94d2f9489412660de36fcef, type: 3}
+  icon: {fileID: 21300000, guid: 2c77d506621f5eb4ca558332c5fcff6a, type: 3}
   animationsIndex: 1

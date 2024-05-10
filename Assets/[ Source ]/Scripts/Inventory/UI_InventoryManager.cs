@@ -15,7 +15,15 @@ public class UI_InventoryManager : MonoBehaviour
 
         inventorySlots = new List<UI_InventorySlot>();
         inventorySlots.AddRange(GetComponentsInChildren<UI_InventorySlot>());
+
+        DrawItems();
     }
+
+    private void OnEnable()
+    {
+        if(inventorySlots != null) DrawItems();
+    }
+
     private void DrawItems()
     {
         ResetItems();

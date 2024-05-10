@@ -44,6 +44,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc058ed7-adb8-4216-8721-7c5b22167a4f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -167,6 +176,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61e2e01d-0957-4f65-850a-6b1f945cae6e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -177,6 +197,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_BasicMap = asset.FindActionMap("BasicMap", throwIfNotFound: true);
         m_BasicMap_Movement = m_BasicMap.FindAction("Movement", throwIfNotFound: true);
         m_BasicMap_Interact = m_BasicMap.FindAction("Interact", throwIfNotFound: true);
+        m_BasicMap_Quit = m_BasicMap.FindAction("Quit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -240,12 +261,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IBasicMapActions> m_BasicMapActionsCallbackInterfaces = new List<IBasicMapActions>();
     private readonly InputAction m_BasicMap_Movement;
     private readonly InputAction m_BasicMap_Interact;
+    private readonly InputAction m_BasicMap_Quit;
     public struct BasicMapActions
     {
         private @PlayerInput m_Wrapper;
         public BasicMapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_BasicMap_Movement;
         public InputAction @Interact => m_Wrapper.m_BasicMap_Interact;
+        public InputAction @Quit => m_Wrapper.m_BasicMap_Quit;
         public InputActionMap Get() { return m_Wrapper.m_BasicMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -261,6 +284,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Quit.started += instance.OnQuit;
+            @Quit.performed += instance.OnQuit;
+            @Quit.canceled += instance.OnQuit;
         }
 
         private void UnregisterCallbacks(IBasicMapActions instance)
@@ -271,6 +297,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Quit.started -= instance.OnQuit;
+            @Quit.performed -= instance.OnQuit;
+            @Quit.canceled -= instance.OnQuit;
         }
 
         public void RemoveCallbacks(IBasicMapActions instance)
@@ -292,5 +321,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnQuit(InputAction.CallbackContext context);
     }
 }

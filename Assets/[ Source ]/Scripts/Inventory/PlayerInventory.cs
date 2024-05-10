@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private int startMoney = 100;
-    private int currentMoney;
+    [HideInInspector] public int CurrentMoney {  get; private set; }
 
     public Dictionary<ItemData, InventoryItem> itemsDictionary = new Dictionary<ItemData, InventoryItem>();
     public event Action ItemsChanged;
@@ -16,16 +15,15 @@ public class PlayerInventory : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        currentMoney = startMoney;
+        CurrentMoney = startMoney;
     }
 
     public void PurchaseItem(ItemData itemData)
     {
         if (itemsDictionary.TryGetValue(itemData, out InventoryItem item)) return;
-        if (currentMoney - itemData.Price < 0) return;
+        if (CurrentMoney - itemData.Price < 0) return;
 
-        currentMoney -= itemData.Price;
-        print(currentMoney);
+        CurrentMoney -= itemData.Price;
         AddItem(itemData);
     }
     public void AddItem(ItemData itemData)
@@ -40,8 +38,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (!itemsDictionary.TryGetValue(itemData, out InventoryItem item)) return;
 
-        currentMoney += itemData.Price;
-        print(currentMoney);
+        CurrentMoney += itemData.Price;
         RemoveItem(itemData);
     }
     public void RemoveItem(ItemData itemData)

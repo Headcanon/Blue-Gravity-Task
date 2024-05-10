@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 enum SlotType { PurchasableSlot, EquipableSlot, SellableSlot }
 public class UI_InventorySlot : MonoBehaviour, IPointerClickHandler
@@ -11,6 +12,7 @@ public class UI_InventorySlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] private ItemData currentItemData;
     [SerializeField] private SlotType slotType;
     [SerializeField] private Sprite emptySprite;
+    [SerializeField] private TextMeshProUGUI priceTextMesh;
     private Image itemIcon;
 
     private void Awake()
@@ -26,6 +28,8 @@ public class UI_InventorySlot : MonoBehaviour, IPointerClickHandler
         {
             currentItemData = newItemData;
             itemIcon.sprite = currentItemData.Icon;
+            if(priceTextMesh != null ) 
+                priceTextMesh.text = "$" + newItemData.Price;
         }
     }
 

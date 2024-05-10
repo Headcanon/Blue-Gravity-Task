@@ -33,4 +33,9 @@ public class PlayerControls : MonoBehaviour
     {
         interactAction?.Invoke();
     }
+
+    public void QuitGame(InputAction.CallbackContext inputContext)
+    {
+        Application.Quit();
+    }
 }

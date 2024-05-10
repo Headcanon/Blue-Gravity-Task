@@ -1,5 +1,5 @@
 {
-    "name": "PlayerControls",
+    "name": "PlayerInput",
     "maps": [
         {
             "name": "BasicMap",
@@ -18,6 +18,15 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "6a412792-8429-4039-97b4-703ac037192a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "fc058ed7-adb8-4216-8721-7c5b22167a4f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -143,6 +152,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61e2e01d-0957-4f65-850a-6b1f945cae6e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

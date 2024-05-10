@@ -16,7 +16,7 @@ public class Interactable : MonoBehaviour
 
     private void Interact()
     {
-        Menu.SetActive(true);
+        Menu.SetActive(!Menu.active);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -36,6 +36,7 @@ public class Interactable : MonoBehaviour
         {
             ButtonIcon.SetActive(false);
             playerInventory.interactAction -= Interact;
+            if(Menu != null) Menu.SetActive(false);
         }
     }
 }
